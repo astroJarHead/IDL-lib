@@ -31,7 +31,9 @@ PRO obs_lst_ha
 
   ; prepare ASCII template to read the data
   
-  ephem_file = 'pds-rings.seti.org_work_viewer3_jup_Ephem.tab.txt'
+  ; We will look for an ephemeris file with a name like *.txt
+  
+  ephem_file = DIALOG_PICKFILE(/READ, FILTER = '*.txt')
 
   templ_file = 'ephem.templ.sav'
 
@@ -118,10 +120,16 @@ PRO obs_lst_ha
   ephem_lh_dat.lst_hr   =  FIX(lst_dec_hr)
   ephem_lh_dat.lst_min  =  (lst_dec_hr - FIX(lst_dec_hr))*60.0
   
-  ; Now save all this hard work
+  ; Now save ALL this hard work
   
   out_ephem_file = 'Jup_lst_ha-Nov-23-May-24.sav'
   
-  SAVE, FILENAME=out_ephem_file, /VERBOSE
+  SAVE, FILENAME=out_ephem_file
+  
+  print,' '
+  print,' Ephemeris file with LST and HA at 0 hours UT for '
+  print,' NOFS saved to disk as the file '+out_ephem_file
+  print,' '
+
   
 END 
